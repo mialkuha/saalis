@@ -11,7 +11,7 @@ class AgentHandler(EntityHandler):
 
     def add_random(self, max_x, max_y, amount=1):
         for i in range(amount) :
-            new_agent = Agent(max_x*rndm.uniform(),max_y*rndm.uniform(), max_x, max_y, 40, tuple(rndm.randint(low=0,high=255,size=3)))
+            new_agent = Agent(max_x*rndm.uniform(),max_y*rndm.uniform(), max_x, max_y, tuple(rndm.randint(low=0,high=255,size=3)))
             self.add(new_agent)
 
     def draw_all(self, win):
