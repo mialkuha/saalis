@@ -16,4 +16,5 @@ class PlantHandler(EntityHandler):
 
     def draw_all(self, win):
         for e in self._entities:
-            e.draw(win)
+            if not e.drawn:
+                e.draw(win)

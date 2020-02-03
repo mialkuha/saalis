@@ -6,7 +6,7 @@ from agent import *
 class AgentHandler(EntityHandler):
     def add(self, agen):
         if not isinstance(agen, Agent):
-            raise TypeError("AgentHandler stores only Agents")
+            raise TypeError("AgentHandler handles only Agents")
         self._entities.add(agen)
 
     def add_random(self, max_x, max_y, amount=1):
