@@ -22,4 +22,4 @@ class EntityHandler(object):
                 new_e = e.breed()
                 bred_es.add(new_e)
         for ne in bred_es:
-            self._entities.add(ne)
+            self.add(ne)

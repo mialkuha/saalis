@@ -1,4 +1,5 @@
 import numpy.random as rndm
+from math import floor
 from entityHandler import *
 from agent import *
 

@@ -1,7 +1,9 @@
+from math import floor
+
 class Entity(object):
     def __init__(self, x, y, max_x, max_y, color):
-        self._x = x
-        self._y = y
+        self._x = floor(x)
+        self._y = floor(y)
         self._max_x = max_x
         self._max_y = max_y
         self._color = color
@@ -9,7 +11,7 @@ class Entity(object):
         self._additional_initialization() #Graphics etc. depend on type
         
     def __str__(self):
-        return ""+type(self)+" "+self._x+" "+self._y+" "+self._color
+        return ""+str(type(self))+" "+str(self._x)+" "+str(self._y)+" "+str(self._color)
 
     def _additional_initialization(self):
         pass
@@ -26,15 +28,15 @@ class Entity(object):
     def can_breed(self):
         pass
     
-    def move_inbounds(self):
+    def move_inbounds(self, buffer=0):
         if (self._x < 0):
-            self._x = 0
+            self._x = buffer
         elif (self._x > self._max_x):
-            self._x = self._max_x
+            self._x = floor(self._max_x)-buffer
         if (self._y < 0):
-            self._y = 0
+            self._y = buffer
         elif (self._y > self._max_y):
-            self._y = self._max_y
+            self._y = floor(self._max_y)-buffer
     
     def breed(self):
         self._breeding_changes() #what happens to the entity on breeding depends on type
