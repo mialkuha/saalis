@@ -6,12 +6,11 @@ from entity import *
 
 class Plant(Entity):
     __g_ticks_from_breed = 0
-    __g_ticks_to_breed = 1
+    __g_ticks_to_breed = 10
     __g_breed_range = 200
     
     def _additional_initialization(self):
-        self._graphic = Circle(Point(self._x,self._y), 100)#Point(self._x,self._y)
-        self._graphic.setOutline(color_rgb(self._color[0],self._color[1],self._color[2]))
+        pass
 
     def _breeding_changes(self):
         Plant.__g_ticks_from_breed = 0
@@ -25,13 +24,13 @@ class Plant(Entity):
         new_p = Plant(m_x, m_y, self._max_x, self._max_y, m_color)
         new_p.move_inbounds()
         return new_p
-
-    def get_coords(self):
-        return (self._x,self._y)
     
     def can_breed(self):
         timer_allows = Plant.__g_ticks_from_breed >= Plant.__g_ticks_to_breed
         return timer_allows
+    
+    def set_ticks_to_breed(new_amount):
+        Plant.__g_ticks_to_breed = new_amount
 
     def tick(self):
         Plant.__g_ticks_from_breed += 1
@@ -43,9 +42,3 @@ class Plant(Entity):
         self._y += floor(r*sin(theta))
         self.move_inbounds()
         return (self._x,self._y)
-        
-    def draw(self, win):
-        self._graphic.undraw()
-        self._graphic = Circle(Point(self._x,self._y), 100)#Point(self._x,self._y)
-        self._graphic.setOutline(color_rgb(self._color[0],self._color[1],self._color[2]))
-        self._graphic.draw(win)
