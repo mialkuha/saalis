@@ -1,13 +1,17 @@
-from math import floor
+import numpy.random as rndm
+from math import sin, cos, pi, floor
 from graphics import *
 
 class Entity(object):
+    _speed = 10 #How many pixels can this move in a tick
+    
     def __init__(self, x, y, max_x, max_y, color):
         self._x = floor(x)
         self._y = floor(y)
         self._max_x = max_x
         self._max_y = max_y
         self._color = color
+        self._is_dying = False
         self.move_inbounds()
         self._init_graphic()
         self._additional_initialization() #Graphics etc. depend on type
@@ -36,6 +40,9 @@ class Entity(object):
 
     def get_coords(self):
         return (self._x,self._y)
+
+    def is_dying(self):
+        return self._is_dying
     
     def move_inbounds(self, buffer=0):
         if (self._x < 0):
@@ -46,10 +53,21 @@ class Entity(object):
             self._y = buffer
         elif (self._y > self._max_y):
             self._y = floor(self._max_y)-buffer
+
+    def move_random(self):
+        r = rndm.uniform(0,self._speed)
+        theta = rndm.uniform(0,2*pi)
+        self._x += floor(r*cos(theta))
+        self._y += floor(r*sin(theta))
+        self.move_inbounds()
+        return (self._x,self._y)
     
     def breed(self):
         self._breeding_changes() #what happens to the entity on breeding depends on type
         return self._mutate_copy()
+        
+    def undraw(self):
+        self._graphic.undraw()
         
     def draw(self, win):
         self._graphic.undraw()

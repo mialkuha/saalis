@@ -38,13 +38,19 @@ class EntityHandler(object):
 
     def tick_all(self):
         bred_es = set()
+        dying_es = set()
         for e in self._entities:
             e.tick()
             if e.can_breed():
                 new_e = e.breed()
                 bred_es.add(new_e)
+            if e.is_dying():
+                dying_es.add(e)
         for ne in bred_es:
             self.add(ne)
+        for de in dying_es:
+            de.undraw()
+            self._entities.remove(de)
 
     def draw_all(self, win):
         for e in self._entities:

@@ -25,7 +25,7 @@ class World(object):
     def tick(self):
         self._agents.tick_all()
         self._plants.tick_all()
-        print(str(self._plants.get_amount()))
+        print("Plants:"+str(self._plants.get_amount())+", Agents:"+str(self._agents.get_amount()))
         self._agents.draw_all(self._win)
         self._plants.draw_all(self._win)
         update()
