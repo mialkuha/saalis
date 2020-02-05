@@ -1,20 +1,21 @@
 import numpy.random as rndm
-from math import sin, cos, pi, floor
+from math import sin, cos, pi
 from graphics import *
 
 class Entity(object):
     _speed = 10 #How many pixels can this move in a tick
     
     def __init__(self, x, y, max_x, max_y, color):
-        self._x = floor(x)
-        self._y = floor(y)
+        self._x = x
+        self._y = y
         self._max_x = max_x
         self._max_y = max_y
         self._color = color
         self._is_dying = False
+        self._nutrition_value = 0 #This depends on type
         self.move_inbounds()
         self._init_graphic()
-        self._additional_initialization() #Graphics etc. depend on type
+        self._additional_initialization() #Things that depend on type
         
     def __str__(self):
         return ""+str(type(self))+" "+str(self._x)+" "+str(self._y)+" "+str(self._color)
@@ -41,24 +42,30 @@ class Entity(object):
     def get_coords(self):
         return (self._x,self._y)
 
+    def get_nutrition_value(self):
+        return self._nutrition_value
+
     def is_dying(self):
         return self._is_dying
+    
+    def kill(self):
+        self._is_dying = True
     
     def move_inbounds(self, buffer=0):
         if (self._x < 0):
             self._x = buffer
         elif (self._x > self._max_x):
-            self._x = floor(self._max_x)-buffer
+            self._x = self._max_x-buffer
         if (self._y < 0):
             self._y = buffer
         elif (self._y > self._max_y):
-            self._y = floor(self._max_y)-buffer
+            self._y = self._max_y-buffer
 
     def move_random(self):
         r = rndm.uniform(0,self._speed)
         theta = rndm.uniform(0,2*pi)
-        self._x += floor(r*cos(theta))
-        self._y += floor(r*sin(theta))
+        self._x += r*cos(theta)
+        self._y += r*sin(theta)
         self.move_inbounds()
         return (self._x,self._y)
     

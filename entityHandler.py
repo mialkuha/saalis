@@ -12,20 +12,23 @@ class EntityHandler(object):
         for e in self._entities:
             strin += str(e) + "\n"
         return strin
+    
+    def _after_tick_action(self, entit):
+        pass
 
-    def _entities_in_range(self, origin, range, ret_objects=False):
+    def entities_in_range(self, origin, rang, ret_objects=False):
         if ret_objects:
             ret = []
         else :
             ret = 0
-        r2 = pow(range,2)
+        r2 = pow(rang,2)
         (o_x, o_y) = origin
         for e in self._entities:
             (x, y) = e.get_coords()
             dist2 = pow(x-o_x,2) + pow(y-o_y,2)
             if r2 > dist2:
                 if ret_objects:
-                    ret += (e, dist2)
+                    ret.append((e, dist2))
                 else :
                     ret +=1
         return ret
@@ -37,10 +40,13 @@ class EntityHandler(object):
         return len(self._entities)
 
     def tick_all(self):
+        for e in self._entities:
+            e.tick()
+
+    def breed_die_all(self):
         bred_es = set()
         dying_es = set()
         for e in self._entities:
-            e.tick()
             if e.can_breed():
                 new_e = e.breed()
                 bred_es.add(new_e)

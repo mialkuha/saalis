@@ -6,10 +6,10 @@ from entity import *
 class Plant(Entity):
     __ticks_from_breed = 0
     __ticks_to_breed = 10
-    _speed = 200
+    _speed = 200 #For Plants this means how far they can breed
     
     def _additional_initialization(self):
-        pass
+        self._nutrition_value = 10
 
     def _breeding_changes(self):
         Plant.__ticks_from_breed = 0

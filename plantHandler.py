@@ -7,17 +7,17 @@ from plant import *
 class PlantHandler(EntityHandler):
     __max_hops = 10
     __personal_space = 10
-    __breeding_slowing_rate = 0.05
+    __breeding_slowing_rate = 0.01
 
     def add(self, plan):
         if not isinstance(plan, Plant):
             raise TypeError("PlantHandler handles only Plants")
         hops = 0
         (x, y) = plan.get_coords()
-        while self._entities_in_range((x,y), self.__personal_space) !=0 and hops < self.__max_hops :
+        while self.entities_in_range((x,y), self.__personal_space) !=0 and hops < self.__max_hops :
             (x, y) = plan.move_random()
             hops +=1
-        if hops < self.__max_hops and self._entities_in_range((x,y), self.__personal_space)==0:
+        if hops < self.__max_hops and self.entities_in_range((x,y), self.__personal_space)==0:
             self._entities.add(plan)      
             Plant.set_ticks_to_breed(exp(self.get_amount()*self.__breeding_slowing_rate))
 
