@@ -42,7 +42,7 @@ class World(object):
         if (self._predators.get_amount()==0):
             self._predators.add_random(self._width, self._height, Predator, 1)
         if (self._preys.get_amount()==0):
-            self._preys.add_random(self._width, self._height, 1)
+            self._preys.add_random(self._width, self._height, Prey, 1)
         
         print("Plants:"+str(self._plants.get_amount())+", Preys:"+str(self._preys.get_amount())+", Predators:"+str(self._predators.get_amount()))
         

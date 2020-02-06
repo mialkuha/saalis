@@ -6,6 +6,7 @@ from entity import *
 class Plant(Entity):
     __ticks_from_breed = 0
     __ticks_to_breed = 10
+    __neighbours_to_not_breed = 10
     _speed = 200 #For Plants this means how far they can breed
     
     def _additional_initialization(self):
@@ -19,8 +20,9 @@ class Plant(Entity):
         new_p.move_random()
         return new_p
     
-    def can_breed(self):
+    def can_breed(self, neighbours):
         timer_allows = Plant.__ticks_from_breed >= Plant.__ticks_to_breed
+        neighbours_allow = neighbours < Plant.__neighbours_to_not_breed
         return timer_allows
     
     def set_ticks_to_breed(new_amount):
