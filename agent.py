@@ -46,11 +46,6 @@ class Agent(Entity):
         self._hunger *= self._breed_hunger_multiplier
         self._eaten_after_breed = 0
 
-    def _mutate_copy(self):
-        new_e = type(self)(self._x, self._y, self._max_x, self._max_y, self._color)
-        new_e.move_random()
-        return new_e
-
 
 class Predator(Agent):
     _speed = 20

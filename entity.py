@@ -20,6 +20,12 @@ class Entity(object):
     def __str__(self):
         return ""+str(type(self))+" "+str(self._x)+" "+str(self._y)+" "+str(self._color)
 
+    def __mutate_color(self, color):
+        r = round(rndm.uniform(-10,10)+color[0]) % 255
+        g = round(rndm.uniform(-10,10)+color[1]) % 255
+        b = round(rndm.uniform(-10,10)+color[2]) % 255
+        return tuple([int(r), int(g), int(b)])
+
     def _init_graphic(self):
         self._graphic = Point(self._x,self._y)
         self._graphic.setOutline(color_rgb(self._color[0],self._color[1],self._color[2]))
@@ -31,7 +37,9 @@ class Entity(object):
         pass
 
     def _mutate_copy(self):
-        pass
+        new_e = type(self)(self._x, self._y, self._max_x, self._max_y, self.__mutate_color(self._color))
+        new_e.move_random()
+        return new_e
     
     def tick(self):
         pass

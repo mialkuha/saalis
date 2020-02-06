@@ -24,6 +24,8 @@ class EntityHandler(object):
         r2 = pow(rang,2)
         (o_x, o_y) = origin
         for e in self._entities:
+            if e.is_dying():
+                continue
             (x, y) = e.get_coords()
             dist2 = pow(x-o_x,2) + pow(y-o_y,2)
             if r2 > dist2:
